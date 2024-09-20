@@ -1,7 +1,7 @@
 import pandas as pd
 from utils import optimize
 from backtest import backtest
-from Backt_test import backtest1
+#from Backt_test import backtest1
 import optuna
 
 if __name__ == '__main__':

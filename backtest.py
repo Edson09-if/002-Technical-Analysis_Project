@@ -1,6 +1,4 @@
-rom
-utils
-import Position
+from utils import Position
 import ta
 import pandas as pd
 import numpy as np

@@ -8,7 +8,6 @@ def backtest(data: pd.DataFrame, sl: float, tp: float,
              rsi_window: int, rsi_lower: int, rsi_upper: int, n_shares=40) -> float:
     data = data.copy()
     rsi = ta.momentum.RSIIndicator(data.Close, window=rsi_window)
-
     data["rsi"] = rsi.rsi()
 
     capital = 1_000_000
@@ -17,6 +16,7 @@ def backtest(data: pd.DataFrame, sl: float, tp: float,
     COM = .25 / 100
 
     for i, row in data.iterrows():
+
         for position in active_positions.copy():
             if row.Close > position.price * (1 + tp):
                 capital += row.Close * n_shares * (1 - COM)
@@ -25,6 +25,7 @@ def backtest(data: pd.DataFrame, sl: float, tp: float,
                 capital += row.Close * n_shares * (1 - COM)
                 active_positions.remove(position)
 
+        #CLOSING RSI POSITIONS
         if row.rsi < rsi_lower:
             if capital > row.Close * n_shares * (1 + COM):
                 capital -= row.Close * n_shares * (1 + COM)
